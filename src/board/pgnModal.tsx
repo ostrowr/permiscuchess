@@ -24,8 +24,6 @@ export const PGNModal: React.FC<IProps> = (props) => {
             if (props.pgn) {
               navigator.clipboard.writeText(props.pgn);
             }
-            // TODO toast or alert
-            console.log("copied");
           }}
         >
           Copy

@@ -22,7 +22,7 @@ export const PieceIds = [
   "q",
 ] as const;
 
-type Square = typeof Squares[number];
+export type Square = typeof Squares[number];
 export const Squares = [
   "a8",
   "b8",

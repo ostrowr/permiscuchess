@@ -28,6 +28,7 @@ const instantiateWorkers = () => {
 const webWorkers = instantiateWorkers();
 
 export const PlayGameButton: React.FC<IProps> = (props) => {
+  const webWorkersSupported = !!window.Worker;
   const { onGameComplete } = props;
   useEffect(() => {
     webWorkers.forEach(
@@ -40,6 +41,7 @@ export const PlayGameButton: React.FC<IProps> = (props) => {
   return (
     <>
       <Button
+        disabled={webWorkers.length === 0}
         onClick={() => {
           for (let i = 0; i < props.nGamesToSimulate; i++) {
             props.onSimulationStart();
@@ -52,6 +54,7 @@ export const PlayGameButton: React.FC<IProps> = (props) => {
       >
         Simulate {props.nGamesToSimulate} game
         {props.nGamesToSimulate === 1 ? "" : "s"}
+        {webWorkersSupported ? "" : " (cannot simulate; no web workers)"}
       </Button>
     </>
   );

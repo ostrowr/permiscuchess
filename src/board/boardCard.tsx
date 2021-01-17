@@ -20,7 +20,7 @@ export const BoardCard: React.FC<IProps> = (props) => {
   );
   if (!props.game) {
     return (
-      <Card style={{ width: 400, height: 500 }}>
+      <Card style={{ height: 500 }}>
         <Card.Body>
           <Card.Title>No game selected</Card.Title>
           <Alert variant={"info"}>
@@ -32,7 +32,7 @@ export const BoardCard: React.FC<IProps> = (props) => {
   }
   return (
     <>
-      <Card style={{ width: 400 }}>
+      <Card style={{ height: 500 }}>
         <Card.Body>
           <Card.Title>{`Game ${props.game.gameIndex}`}</Card.Title>
           <Card.Subtitle>{`${props.game.outcome} by ${props.game.by}`}</Card.Subtitle>

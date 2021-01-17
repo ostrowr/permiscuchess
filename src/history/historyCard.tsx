@@ -5,6 +5,7 @@ import { GameResult } from "../engine/worker";
 import Button from "react-bootstrap/Button";
 import { HistoryTable } from "./historyTable";
 import { StatsModal } from "./statsModal";
+import { CSVLink } from "react-csv";
 
 interface IProps {
   setGames: (games: GameResult[]) => void;
@@ -14,9 +15,14 @@ interface IProps {
 
 export const HistoryCard: React.FC<IProps> = (props) => {
   const [statsModalOpen, setStatsModalOpen] = useState(false);
+
+  // we don't really need to recompute this every time; investigate if
+  // we should just compute everything when the download button is clicked!
+  const csvHeaders = ["#", "Outcome", "By", "PGN"];
+  const csvData = props.games.map((g, i) => [i, g.outcome, g.by, g.pgn]);
   return (
     <>
-      <Card style={{ width: 400 }}>
+      <Card style={{ height: 500 }}>
         <Card.Body>
           <Card.Title>History</Card.Title>
           <Card.Subtitle>All games played</Card.Subtitle>
@@ -36,13 +42,14 @@ export const HistoryCard: React.FC<IProps> = (props) => {
               >
                 Stats
               </Button>
-              <Button
-                onClick={() => console.log("TODO")}
-                size="sm"
-                variant="dark"
+              <CSVLink
+                data={[csvHeaders, ...csvData]}
+                filename={"permiscuchess-results.csv"}
               >
-                Download
-              </Button>
+                <Button size="sm" variant="dark">
+                  Download
+                </Button>
+              </CSVLink>
             </ButtonGroup>
           </Card.Text>
           <div style={{ maxHeight: 350, overflow: "scroll" }}>

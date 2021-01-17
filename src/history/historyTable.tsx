@@ -3,8 +3,6 @@ import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import { GameResult } from "../engine/worker";
 
-// Should support
-// * download
 export const HistoryTable: React.FC<{
   games: GameResult[];
   onRowClick: (game: GameResult, gameNumber: number) => void;
