@@ -1,4 +1,3 @@
-import { assert } from "console";
 import { Move, PieceId, PieceIds, Squares, Square } from "../engine/game";
 
 export const moveToText = (m: Move): string => {
