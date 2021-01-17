@@ -4,7 +4,7 @@ import { Move, PieceId } from "../engine/game";
 
 interface IProps {
   moves: Move[];
-  draggable: boolean;
+  draggable: boolean; // todo!! https://autodesk.github.io/react-base-table/examples/draggable-rows
 }
 
 export const StrategyTable: React.FC<IProps> = (props) => {

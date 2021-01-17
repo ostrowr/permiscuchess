@@ -36,8 +36,8 @@ function App() {
   const [numCurrentlySimulating, setNumCurrentlySimulating] = useState(0);
   const [nGamesToSimulate, setNGamesToSimulate] = useState(1);
   const [strategy, setStrategy] = useState<Move[]>(ALL_POSSIBLE_MOVES);
-  const [strategyFor, setStrategyFor] = useState<"w" | "b">("w"); // todo allow both random
-  // TODO factor out each card type, export to lichess
+  const [strategyFor, setStrategyFor] = useState<"w" | "b" | null>(null);
+  // TODO factor out each card type
   const gameCard = currentGame ? (
     <Card style={{ width: 400 }}>
       <Card.Body>
@@ -107,10 +107,16 @@ function App() {
                 <span
                   style={{ color: "gray", cursor: "pointer" }}
                   onClick={() =>
-                    setStrategyFor((prev) => (prev === "w" ? "b" : "w"))
+                    setStrategyFor((prev) =>
+                      prev === "w" ? "b" : prev === "b" ? null : "w"
+                    )
                   }
                 >
-                  {strategyFor === "w" ? "white" : "black"}
+                  {strategyFor === "w"
+                    ? "white"
+                    : strategyFor === "b"
+                    ? "black"
+                    : "neither player"}
                 </span>
               </Card.Subtitle>
               <Card.Text>
@@ -138,7 +144,14 @@ function App() {
                   </Button>
                 </ButtonGroup>
               </Card.Text>
-              <StrategyTable moves={strategy} draggable={true} />
+              {strategyFor !== null ? (
+                <StrategyTable moves={strategy} draggable={true} />
+              ) : (
+                <Alert variant={"info"}>
+                  Both players are playing randomly. Click "neither player"
+                  above to set a strategy for Black or White.
+                </Alert>
+              )}
             </Card.Body>
           </Card>
           <Card style={{ width: 400 }}>
@@ -147,11 +160,7 @@ function App() {
               <Card.Subtitle>All games played</Card.Subtitle>
               <Card.Text>
                 <ButtonGroup>
-                  <Button
-                    onClick={() => console.log("TODO")}
-                    size="sm"
-                    variant="info"
-                  >
+                  <Button onClick={() => setGames([])} size="sm" variant="info">
                     Clear
                   </Button>
                   <Button
@@ -207,7 +216,7 @@ function App() {
             value={nGamesToSimulate}
             onChange={(e) => setNGamesToSimulate(parseInt(e.target.value, 10))}
             min={1}
-            max={100}
+            max={1000}
           />
         </div>
         <PGNModal

@@ -5,6 +5,7 @@ import Spinner from "react-bootstrap/Spinner";
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import Worker from "worker-loader!../engine/worker.ts";
+import { useEffect } from "react";
 
 interface IProps {
   strategies: ChessWorkerInput;
@@ -13,32 +14,46 @@ interface IProps {
   onSimulationStart: () => void;
 }
 
-export const PlayGameButton: React.FC<IProps> = (props) => {
+const instantiateWorkers = () => {
   const workers: Worker[] = [];
-  const nWorkers = 1; // try navigator.hardwareConcurrency
+  const nWorkers = navigator.hardwareConcurrency;
   for (let i = 0; i < nWorkers; i++) {
-    const worker = new Worker();
-    worker.onmessage = (msg: MessageEvent<GameResult>) => {
-      props.onGameComplete(msg.data);
-    };
-    workers.push(worker);
+    console.log("instantiating new worker");
+    workers.push(new Worker());
   }
+  return workers;
+};
+
+// should probably pull out of global state
+const webWorkers = instantiateWorkers();
+
+export const PlayGameButton: React.FC<IProps> = (props) => {
+  const { onGameComplete } = props;
+  useEffect(() => {
+    webWorkers.forEach(
+      (w) =>
+        (w.onmessage = (msg: MessageEvent<GameResult>) =>
+          onGameComplete(msg.data))
+    );
+  }, [onGameComplete]);
 
   return (
-    <Button
-      onClick={() => {
-        for (let i = 0; i < props.nGamesToSimulate; i++) {
-          props.onSimulationStart();
-          // simplest possible scheduling algorithm; just rotate workers.
-          // not sure if this is actually faster than just 1 worker; need
-          // to test! Or maybe use in some sort of proper pool.
-          workers[i % workers.length].postMessage(props.strategies);
-        }
-      }}
-    >
-      Simulate {props.nGamesToSimulate} game
-      {props.nGamesToSimulate === 1 ? "" : "s"}
-    </Button>
+    <>
+      <Button
+        onClick={() => {
+          for (let i = 0; i < props.nGamesToSimulate; i++) {
+            props.onSimulationStart();
+            // simplest possible scheduling algorithm; just rotate workers.
+            // not sure if this is actually faster than just 1 worker; need
+            // to test! Or maybe use in some sort of proper pool.
+            webWorkers[i % webWorkers.length].postMessage(props.strategies);
+          }
+        }}
+      >
+        Simulate {props.nGamesToSimulate} game
+        {props.nGamesToSimulate === 1 ? "" : "s"}
+      </Button>
+    </>
   );
 };
 

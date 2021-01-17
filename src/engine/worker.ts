@@ -1,4 +1,4 @@
-import { Permiscuchess, Move, Outcome } from "./game";
+import { Permiscuchess, Move } from "./game";
 import { randomStrategy } from "./utils";
 
 export type ChessWorkerInput = {
