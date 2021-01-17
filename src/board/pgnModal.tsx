@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 
 interface IProps {
   show: boolean;
-  pgn: string | null;
+  pgn: string | undefined;
   onHide: () => void;
 }
 

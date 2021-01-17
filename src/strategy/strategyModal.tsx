@@ -6,7 +6,7 @@ import { StrategyTable } from "./strategyTable";
 
 interface IProps {
   show: boolean;
-  strategy: Move[] | null;
+  strategy: Move[] | undefined;
   onHide: () => void;
 }
 
