@@ -1,7 +1,7 @@
 import { PieceIds, Squares } from "./game";
 
 // including impossible bishop moves (for now)
-const ALL_POSSIBLE_MOVES = PieceIds.flatMap((pieceId) => {
+export const ALL_POSSIBLE_MOVES = PieceIds.flatMap((pieceId) => {
   return Squares.map((s) => {
     return {
       piece: pieceId,

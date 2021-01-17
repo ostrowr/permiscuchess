@@ -2,7 +2,7 @@ import Chess, { ChessInstance } from "chess.js";
 
 // Unique identifiers for all 16 pieces. `pa` represents the pawn that starts on
 // the a file, even if it moves to a different file (or is promoted) later in the game.
-type PieceId = typeof PieceIds[number];
+export type PieceId = typeof PieceIds[number];
 export const PieceIds = [
   "pa",
   "pb",

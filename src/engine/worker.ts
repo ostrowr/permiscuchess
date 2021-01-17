@@ -6,20 +6,40 @@ export type ChessWorkerInput = {
   blackMoves: Move[] | undefined;
 };
 
-export type ChessWorkerOutput = {
-  outcome: Outcome;
-  pgn: string;
+export interface GameResult {
+  outcome: "White wins" | "Black wins" | "Draw";
+  by:
+    | "threefold repetition"
+    | "stalemate"
+    | "insufficient material"
+    | "fifty move rule"
+    | "checkmate";
+  whiteStrategy: Move[];
+  blackStrategy: Move[];
   fen: string;
-};
+  pgn: string;
+}
 
 onmessage = (msg: MessageEvent<ChessWorkerInput>) => {
-  const blackMoves = msg.data.blackMoves ?? randomStrategy();
-  const whiteMoves = msg.data.whiteMoves ?? randomStrategy();
+  const blackStrategy = msg.data.blackMoves ?? randomStrategy();
+  const whiteStrategy = msg.data.whiteMoves ?? randomStrategy();
 
   const game = new Permiscuchess();
-  const outcome = game.play(whiteMoves, blackMoves);
-  const pgn = game.pgn();
-  const fen = game.fen();
+  const result = game.play(whiteStrategy, blackStrategy);
+
+  const messageToReturn: GameResult = {
+    pgn: game.pgn(),
+    fen: game.fen(),
+    whiteStrategy,
+    blackStrategy,
+    outcome:
+      result.outcome === "draw"
+        ? "Draw"
+        : result.winner === "w"
+        ? "White wins"
+        : "Black wins",
+    by: result.outcome === "checkmate" ? "checkmate" : result.reason,
+  };
   // @ts-expect-error
-  postMessage({ outcome, pgn, fen }); // TODO – change on production; maybe window.opener.location?
+  postMessage(messageToReturn); // TODO – change on production; maybe window.opener.location?
 };
