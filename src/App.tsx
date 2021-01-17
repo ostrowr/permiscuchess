@@ -7,11 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-base-table/styles.css";
 import "react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css";
 
-import { HistoryTable } from "./game-history/history-table";
-import {
-  PendingSpinner,
-  PlayGameButton,
-} from "./game-history/play-game-button";
+import { HistoryTable } from "./history-card/history-table";
+import { PendingSpinner, PlayGameButton } from "./play-game-button";
 import { GameResult } from "./engine/worker";
 import { PGNModal } from "./chess-metadata-containers/pgnModal";
 import RangeSlider from "react-bootstrap-range-slider";
@@ -24,12 +21,14 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Alert from "react-bootstrap/Alert";
 import { StrategyTable } from "./chess-metadata-containers/strategyTable";
 import { ALL_POSSIBLE_MOVES, randomStrategy } from "./engine/utils";
+import { StatsModal } from "./chess-metadata-containers/statsModal";
 
 function App() {
   const [games, setGames] = useState<GameResult[]>([]);
 
   const [pgnForModal, setPgnForModal] = useState<string | null>(null);
   const [strategyForModal, setStrategyForModal] = useState<Move[] | null>(null);
+  const [statsModalOpen, setStatsModalOpen] = useState(false);
   const [currentGame, setCurrentGame] = useState<
     (GameResult & { gameIndex: number }) | null
   >(null);
@@ -164,7 +163,7 @@ function App() {
                     Clear
                   </Button>
                   <Button
-                    onClick={() => console.log("TODO")}
+                    onClick={() => setStatsModalOpen(true)}
                     size="sm"
                     variant="light"
                   >
@@ -228,6 +227,11 @@ function App() {
           strategy={strategyForModal}
           onHide={() => setStrategyForModal(null)}
           show={strategyForModal !== null}
+        />
+        <StatsModal
+          games={games}
+          onHide={() => setStatsModalOpen(false)}
+          show={statsModalOpen}
         />
       </div>
     </>

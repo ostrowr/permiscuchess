@@ -1,10 +1,10 @@
 import Button from "react-bootstrap/Button";
-import { ChessWorkerInput, GameResult } from "../engine/worker";
+import { ChessWorkerInput, GameResult } from "./engine/worker";
 import Spinner from "react-bootstrap/Spinner";
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import Worker from "worker-loader!../engine/worker.ts";
+import Worker from "worker-loader!./engine/worker.ts";
 import { useEffect } from "react";
 
 interface IProps {

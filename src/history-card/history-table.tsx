@@ -6,8 +6,6 @@ import { Move } from "../engine/game";
 
 // Should support
 // * download
-// * clear
-// * get statistics
 export const HistoryTable: React.FC<{
   games: GameResult[];
   onPgnClick: (pgn: string) => void;
@@ -37,7 +35,7 @@ export const HistoryTable: React.FC<{
   }
 
   return (
-    <Table striped bordered hover size="sm">
+    <Table bordered hover size="sm">
       {header}
       <tbody>{rows.reverse()}</tbody>
     </Table>
