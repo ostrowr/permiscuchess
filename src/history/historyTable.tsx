@@ -2,14 +2,11 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import { GameResult } from "../engine/worker";
-import { Move } from "../engine/game";
 
 // Should support
 // * download
 export const HistoryTable: React.FC<{
   games: GameResult[];
-  onPgnClick: (pgn: string) => void;
-  onViewStrategy: (strategy: Move[]) => void;
   onRowClick: (game: GameResult, gameNumber: number) => void;
 }> = (props) => {
   const header = (

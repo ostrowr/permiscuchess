@@ -2,33 +2,26 @@ import React, { useState } from "react";
 import "./App.css";
 import Chessboard from "chessboardjsx";
 
-// todo move to index
-import "bootstrap/dist/css/bootstrap.min.css";
-import "react-base-table/styles.css";
-import "react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css";
-
-import { HistoryTable } from "./history-card/history-table";
 import { PendingSpinner, PlayGameButton } from "./play-game-button";
 import { GameResult } from "./engine/worker";
 import { PGNModal } from "./chess-metadata-containers/pgnModal";
 import RangeSlider from "react-bootstrap-range-slider";
 import { Move } from "./engine/game";
-import { StrategyModal } from "./chess-metadata-containers/strategyModal";
-import Jumbotron from "react-bootstrap/Jumbotron";
+import { StrategyModal } from "./strategy/strategyModal";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Alert from "react-bootstrap/Alert";
-import { StrategyTable } from "./chess-metadata-containers/strategyTable";
-import { ALL_POSSIBLE_MOVES, randomStrategy } from "./engine/utils";
-import { StatsModal } from "./chess-metadata-containers/statsModal";
+import { ALL_POSSIBLE_MOVES } from "./engine/utils";
+import { HistoryCard } from "./history/historyCard";
+import { Title } from "./title";
+import { StrategyCard } from "./strategy/strategyCard";
 
 function App() {
   const [games, setGames] = useState<GameResult[]>([]);
 
   const [pgnForModal, setPgnForModal] = useState<string | null>(null);
   const [strategyForModal, setStrategyForModal] = useState<Move[] | null>(null);
-  const [statsModalOpen, setStatsModalOpen] = useState(false);
   const [currentGame, setCurrentGame] = useState<
     (GameResult & { gameIndex: number }) | null
   >(null);
@@ -90,108 +83,21 @@ function App() {
   // TODO use rows/columns instead from bootstrap layout
   return (
     <>
-      <Jumbotron style={{ padding: 10 }}>
-        <h1>Permiscuchess</h1>
-        <p>TODOTODO</p>
-      </Jumbotron>
-
+      <Title />
       <div style={{ marginBottom: 20, marginLeft: 30 }}>
         <div style={{ display: "flex" }}>
           {gameCard}
-          <Card style={{ width: 400 }}>
-            <Card.Body>
-              <Card.Title>Strategy</Card.Title>
-              <Card.Subtitle>
-                Setting strategy for{" "}
-                <span
-                  style={{ color: "gray", cursor: "pointer" }}
-                  onClick={() =>
-                    setStrategyFor((prev) =>
-                      prev === "w" ? "b" : prev === "b" ? null : "w"
-                    )
-                  }
-                >
-                  {strategyFor === "w"
-                    ? "white"
-                    : strategyFor === "b"
-                    ? "black"
-                    : "neither player"}
-                </span>
-              </Card.Subtitle>
-              <Card.Text>
-                <ButtonGroup>
-                  <Button
-                    size="sm"
-                    onClick={() => setStrategy(randomStrategy())}
-                    variant="info"
-                  >
-                    Randomize
-                  </Button>
-                  <Button
-                    size="sm"
-                    onClick={() => console.log("TODO")}
-                    variant="light"
-                  >
-                    Import
-                  </Button>
-                  <Button
-                    size="sm"
-                    onClick={() => console.log("TODO")}
-                    variant="dark"
-                  >
-                    Export
-                  </Button>
-                </ButtonGroup>
-              </Card.Text>
-              {strategyFor !== null ? (
-                <StrategyTable moves={strategy} draggable={true} />
-              ) : (
-                <Alert variant={"info"}>
-                  Both players are playing randomly. Click "neither player"
-                  above to set a strategy for Black or White.
-                </Alert>
-              )}
-            </Card.Body>
-          </Card>
-          <Card style={{ width: 400 }}>
-            <Card.Body>
-              <Card.Title>History</Card.Title>
-              <Card.Subtitle>All games played</Card.Subtitle>
-              <Card.Text>
-                <ButtonGroup>
-                  <Button onClick={() => setGames([])} size="sm" variant="info">
-                    Clear
-                  </Button>
-                  <Button
-                    onClick={() => setStatsModalOpen(true)}
-                    size="sm"
-                    variant="light"
-                  >
-                    Stats
-                  </Button>
-                  <Button
-                    onClick={() => console.log("TODO")}
-                    size="sm"
-                    variant="dark"
-                  >
-                    Download
-                  </Button>
-                </ButtonGroup>
-              </Card.Text>
-              <div style={{ maxHeight: 350, overflow: "scroll" }}>
-                <HistoryTable
-                  games={games}
-                  onPgnClick={(pgn: string) => setPgnForModal(pgn)}
-                  onViewStrategy={(strategy: Move[]) =>
-                    setStrategyForModal(strategy)
-                  }
-                  onRowClick={(game: GameResult, gameIndex: number) =>
-                    setCurrentGame({ ...game, gameIndex })
-                  }
-                />
-              </div>
-            </Card.Body>
-          </Card>
+          <StrategyCard
+            strategy={strategy}
+            setStrategy={setStrategy}
+            strategyFor={strategyFor}
+            setStrategyFor={setStrategyFor}
+          />
+          <HistoryCard
+            games={games}
+            setGames={setGames}
+            setCurrentGame={setCurrentGame}
+          />
         </div>
         <PlayGameButton
           nGamesToSimulate={nGamesToSimulate}
@@ -227,11 +133,6 @@ function App() {
           strategy={strategyForModal}
           onHide={() => setStrategyForModal(null)}
           show={strategyForModal !== null}
-        />
-        <StatsModal
-          games={games}
-          onHide={() => setStatsModalOpen(false)}
-          show={statsModalOpen}
         />
       </div>
     </>
