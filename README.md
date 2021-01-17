@@ -1,3 +1,0 @@
-# Permiscuchess
-
-Pre-play chess
