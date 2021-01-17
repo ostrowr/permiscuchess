@@ -34,7 +34,9 @@
     "start": "FAST_REFRESH=false react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -57,5 +59,6 @@
   "devDependencies": {
     "gh-pages": "^3.1.0",
     "worker-loader": "^3.0.7"
-  }
+  },
+  "homepage": "https://ostrowr.github.io/permiscuchess"
 }
