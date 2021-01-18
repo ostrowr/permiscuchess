@@ -100,8 +100,8 @@ export interface Move {
 
 export type Outcome =
   | {
-      outcome: "checkmate";
-      winner: "w" | "b";
+      outcome: "white wins" | "black wins";
+      reason: "checkmate" | "forfeit";
     }
   | {
       outcome: "draw";
@@ -200,11 +200,21 @@ export class Permiscuchess {
     while (!this.game.game_over()) {
       const turn = this.game.turn();
       const availableMoves = this.game.moves({ verbose: true });
+      let nLoopsAround = 0;
       while (true) {
         const moveIx = moves[turn]["ix"];
         const move = moves[turn]["moves"][moveIx];
         moves[turn]["ix"] += 1;
         moves[turn]["ix"] %= moves[turn]["moves"].length;
+        if (moves[turn]["ix"] === 0) {
+          nLoopsAround++; // if we hit move 0 twice before moving on to the next player, we weren't able to make a move. That's a forfeit.
+        }
+        if (nLoopsAround === 2) {
+          return {
+            outcome: this.game.turn() === "w" ? "black wins" : "white wins",
+            reason: "forfeit",
+          };
+        }
         if (
           availableMoves.find(
             (m) =>
@@ -220,8 +230,8 @@ export class Permiscuchess {
 
     if (this.game.in_checkmate()) {
       return {
-        winner: this.game.turn() === "w" ? "b" : "w",
-        outcome: "checkmate",
+        outcome: this.game.turn() === "w" ? "black wins" : "white wins",
+        reason: "checkmate",
       };
     }
     return {

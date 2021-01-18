@@ -13,7 +13,8 @@ export interface GameResult {
     | "stalemate"
     | "insufficient material"
     | "fifty move rule"
-    | "checkmate";
+    | "checkmate"
+    | "forfeit";
   whiteStrategy: Move[];
   blackStrategy: Move[];
   fen: string;
@@ -35,10 +36,10 @@ onmessage = (msg: MessageEvent<ChessWorkerInput>) => {
     outcome:
       result.outcome === "draw"
         ? "Draw"
-        : result.winner === "w"
+        : result.outcome === "white wins"
         ? "White wins"
         : "Black wins",
-    by: result.outcome === "checkmate" ? "checkmate" : result.reason,
+    by: result.reason,
   };
   // @ts-expect-error
   postMessage(messageToReturn); // TODO – change on production; maybe window.opener.location?

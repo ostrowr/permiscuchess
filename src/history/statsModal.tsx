@@ -24,7 +24,7 @@ export const StatsModal: React.FC<IProps> = (props) => {
   const checkmate = {
     x: ["White wins", "Black wins"],
     y: [nWhiteWins, nBlackWins],
-    name: "checkmate",
+    name: "checkmate/forfeit",
     type: "bar" as const,
   };
 
