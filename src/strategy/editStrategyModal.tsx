@@ -51,7 +51,7 @@ export const EditStrategyModal: React.FC<IProps> = (props) => {
         <Modal.Body>
           <Container>
             <Row>
-              <Col>TODO</Col>
+              <Col>Edit your strategy by adding or re-ordering moves here.</Col>
               <Col>
                 <textarea
                   value={currStrategy}
