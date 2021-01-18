@@ -1,27 +1,27 @@
 {
   "files": {
     "main.css": "/permiscuchess/static/css/main.8c8b27cf.chunk.css",
-    "main.js": "/permiscuchess/static/js/main.45242472.chunk.js",
-    "main.js.map": "/permiscuchess/static/js/main.45242472.chunk.js.map",
-    "runtime-main.js": "/permiscuchess/static/js/runtime-main.0124c12f.js",
-    "runtime-main.js.map": "/permiscuchess/static/js/runtime-main.0124c12f.js.map",
+    "main.js": "/permiscuchess/static/js/main.f2f561c7.chunk.js",
+    "main.js.map": "/permiscuchess/static/js/main.f2f561c7.chunk.js.map",
+    "runtime-main.js": "/permiscuchess/static/js/runtime-main.3199b137.js",
+    "runtime-main.js.map": "/permiscuchess/static/js/runtime-main.3199b137.js.map",
     "static/css/2.3d18cb10.chunk.css": "/permiscuchess/static/css/2.3d18cb10.chunk.css",
-    "static/js/2.65dc9bbb.chunk.js": "/permiscuchess/static/js/2.65dc9bbb.chunk.js",
-    "static/js/2.65dc9bbb.chunk.js.map": "/permiscuchess/static/js/2.65dc9bbb.chunk.js.map",
-    "static/js/3.95c72142.chunk.js": "/permiscuchess/static/js/3.95c72142.chunk.js",
-    "static/js/3.95c72142.chunk.js.map": "/permiscuchess/static/js/3.95c72142.chunk.js.map",
+    "static/js/2.fcce74fb.chunk.js": "/permiscuchess/static/js/2.fcce74fb.chunk.js",
+    "static/js/2.fcce74fb.chunk.js.map": "/permiscuchess/static/js/2.fcce74fb.chunk.js.map",
+    "static/js/3.2dbee028.chunk.js": "/permiscuchess/static/js/3.2dbee028.chunk.js",
+    "static/js/3.2dbee028.chunk.js.map": "/permiscuchess/static/js/3.2dbee028.chunk.js.map",
     "index.html": "/permiscuchess/index.html",
     "static/css/2.3d18cb10.chunk.css.map": "/permiscuchess/static/css/2.3d18cb10.chunk.css.map",
     "static/css/main.8c8b27cf.chunk.css.map": "/permiscuchess/static/css/main.8c8b27cf.chunk.css.map",
-    "static/js/2.65dc9bbb.chunk.js.LICENSE.txt": "/permiscuchess/static/js/2.65dc9bbb.chunk.js.LICENSE.txt",
+    "static/js/2.fcce74fb.chunk.js.LICENSE.txt": "/permiscuchess/static/js/2.fcce74fb.chunk.js.LICENSE.txt",
     "static/js/worker.d69aae68.worker.js": "/permiscuchess/static/js/worker.d69aae68.worker.js",
     "static/js/worker.d69aae68.worker.js.map": "/permiscuchess/static/js/worker.d69aae68.worker.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.0124c12f.js",
+    "static/js/runtime-main.3199b137.js",
     "static/css/2.3d18cb10.chunk.css",
-    "static/js/2.65dc9bbb.chunk.js",
+    "static/js/2.fcce74fb.chunk.js",
     "static/css/main.8c8b27cf.chunk.css",
-    "static/js/main.45242472.chunk.js"
+    "static/js/main.f2f561c7.chunk.js"
   ]
 }
