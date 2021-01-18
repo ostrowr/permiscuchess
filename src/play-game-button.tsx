@@ -16,7 +16,7 @@ interface IProps {
 
 const instantiateWorkers = () => {
   const workers: Worker[] = [];
-  const nWorkers = navigator.hardwareConcurrency;
+  const nWorkers = navigator.hardwareConcurrency ?? 4;
   for (let i = 0; i < nWorkers; i++) {
     console.log("instantiating new worker");
     workers.push(new Worker());
