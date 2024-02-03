@@ -1,4 +1,4 @@
-import Chess, { ChessInstance } from "chess.js";
+import { Chess, WHITE, BLACK } from "chess.js";
 
 // Unique identifiers for all 16 pieces. `pa` represents the pawn that starts on
 // the a file, even if it moves to a different file (or is promoted) later in the game.
@@ -113,11 +113,11 @@ export type Outcome =
     };
 
 export class Permiscuchess {
-  private game: ChessInstance;
+  private game: Chess;
   private positions: { w: Position; b: Position };
 
   constructor() {
-    this.game = new ((Chess as unknown) as typeof Chess.Chess)(); // types are wrong here
+    this.game = new Chess();
 
     const WHITE_START: Position = {
       pa: "a2",
@@ -158,8 +158,8 @@ export class Permiscuchess {
     };
 
     this.positions = {
-      [this.game.WHITE]: WHITE_START,
-      [this.game.BLACK]: BLACK_START,
+      [WHITE]: WHITE_START,
+      [BLACK]: BLACK_START,
     };
   }
 
@@ -188,16 +188,16 @@ export class Permiscuchess {
 
   public play(whiteMoves: Move[], blackMoves: Move[]): Outcome {
     const moves = {
-      [this.game.WHITE]: {
+      [WHITE]: {
         ix: 0,
         moves: whiteMoves,
       },
-      [this.game.BLACK]: {
+      [BLACK]: {
         ix: 0,
         moves: blackMoves,
       },
     };
-    while (!this.game.game_over()) {
+    while (!this.game.isGameOver()) {
       const turn = this.game.turn();
       const availableMoves = this.game.moves({ verbose: true });
       let nLoopsAround = 0;
@@ -228,7 +228,7 @@ export class Permiscuchess {
       }
     }
 
-    if (this.game.in_checkmate()) {
+    if (this.game.isCheckmate()) {
       return {
         outcome: this.game.turn() === "w" ? "black wins" : "white wins",
         reason: "checkmate",
@@ -236,11 +236,11 @@ export class Permiscuchess {
     }
     return {
       outcome: "draw",
-      reason: this.game.in_threefold_repetition()
+      reason: this.game.isThreefoldRepetition()
         ? "threefold repetition"
-        : this.game.in_stalemate()
+        : this.game.isStalemate()
         ? "stalemate"
-        : this.game.insufficient_material()
+        : this.game.isInsufficientMaterial()
         ? "insufficient material"
         : "fifty move rule",
     };

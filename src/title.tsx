@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Jumbotron from "react-bootstrap/Jumbotron";
 import Button from "react-bootstrap/Button";
 import { Github } from "react-bootstrap-icons";
 
@@ -9,7 +8,7 @@ export const Title: React.FC = (props) => {
   const [showRules, setShowRules] = useState(false);
   return (
     <>
-      <Jumbotron style={{ padding: 10 }}>
+      <div className="jumbotron" style={{ padding: 10 }}>
         <h1>Permiscuchess</h1>
         <p>By Robbie Ostrow</p>
         <Button
@@ -28,7 +27,7 @@ export const Title: React.FC = (props) => {
             <Github /> View source
           </Button>
         </a>
-      </Jumbotron>
+      </div>
       <Rules show={showRules} onHide={() => setShowRules(false)} />
     </>
   );

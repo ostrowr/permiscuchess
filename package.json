@@ -3,41 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/chess.js": "^0.10.1",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
-    "@types/plotly.js": "^1.54.7",
-    "@types/react": "^16.9.53",
-    "@types/react-bootstrap-range-slider": "^1.2.0",
-    "@types/react-csv": "^1.1.1",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-plotly.js": "^2.2.4",
     "bootstrap": "^4.5.3",
-    "chess.js": "^0.11.0",
-    "chessboardjsx": "^2.4.2",
-    "plotly.js": "^1.58.4",
-    "react": "^17.0.1",
-    "react-base-table": "^1.12.0",
-    "react-bootstrap": "^1.4.3",
-    "react-bootstrap-icons": "^1.2.3",
-    "react-bootstrap-range-slider": "^2.0.2",
-    "react-csv": "^2.0.3",
-    "react-dom": "^17.0.1",
-    "react-plotly.js": "^2.5.1",
-    "react-scripts": "4.0.1",
-    "typescript": "^4.0.3",
-    "web-vitals": "^0.2.4"
+    "chess.js": "^1.0.0-beta.7",
+    "chessboardjsx": "^2.4.7",
+    "plotly.js": "^2.29.0",
+    "react": "18.2.0",
+    "react-base-table": "^1.13.4",
+    "react-bootstrap": "^2.10.0",
+    "react-bootstrap-icons": "^1.10.3",
+    "react-bootstrap-range-slider": "^3.0.8",
+    "react-csv": "^2.2.2",
+    "react-dom": "18.2.0",
+    "react-plotly.js": "^2.6.0",
+    "react-scripts": "5.0.1",
+    "typescript": "^5.3.3",
+    "web-vitals": "^3.5.2"
   },
   "scripts": {
     "start": "FAST_REFRESH=false react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "yarn build",
-    "deploy": "gh-pages -d build"
+    "predeploy": "yarn build"
   },
   "eslintConfig": {
     "extends": [
@@ -58,8 +45,33 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^3.1.0",
-    "worker-loader": "^3.0.7"
+    "@babel/core": "^7.23.9",
+    "@babel/helper-builder-react-jsx": "^7.22.10",
+    "@babel/helper-builder-react-jsx-experimental": "^7.12.11",
+    "@babel/plugin-proposal-async-generator-functions": "^7.20.7",
+    "@babel/plugin-proposal-dynamic-import": "^7.18.6",
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
+    "@babel/plugin-proposal-json-strings": "^7.18.6",
+    "@babel/plugin-proposal-logical-assignment-operators": "^7.20.7",
+    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
+    "@babel/plugin-proposal-optional-catch-binding": "^7.18.6",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/plugin-proposal-unicode-property-regex": "^7.18.6",
+    "worker-loader": "^3.0.8",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/chess.js": "^0.13.7",
+    "@types/jest": "^26.0.15",
+    "@types/plotly.js": "^2.29.0",
+    "@types/react": "18.2.52",
+    "@types/react-bootstrap-range-slider": "^1.2.0",
+    "@types/react-csv": "^1.1.10",
+    "@types/react-dom": " 18.2.18",
+    "@types/react-plotly.js": "^2.6.3"
   },
-  "homepage": "https://ostrowr.github.io/permiscuchess"
+  "resolutions": {
+    "@types/react": "^18.2.52",
+    "@types/react-dom": " 18.2.18"
+  }
 }

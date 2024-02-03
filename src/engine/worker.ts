@@ -41,6 +41,5 @@ onmessage = (msg: MessageEvent<ChessWorkerInput>) => {
         : "Black wins",
     by: result.reason,
   };
-  // @ts-expect-error
   postMessage(messageToReturn); // TODO – change on production; maybe window.opener.location?
 };
