@@ -2,7 +2,6 @@ import React from "react";
 import { GameResult } from "../engine/worker";
 import Plot from "react-plotly.js";
 import Modal from "react-bootstrap/Modal";
-import Jumbotron from "react-bootstrap/Jumbotron";
 
 interface IProps {
   games: GameResult[];
@@ -11,10 +10,12 @@ interface IProps {
 }
 
 export const StatsModal: React.FC<IProps> = (props) => {
-  const nWhiteWins = props.games.filter((p) => p.outcome === "White wins")
-    .length;
-  const nBlackWins = props.games.filter((p) => p.outcome === "Black wins")
-    .length;
+  const nWhiteWins = props.games.filter(
+    (p) => p.outcome === "White wins"
+  ).length;
+  const nBlackWins = props.games.filter(
+    (p) => p.outcome === "Black wins"
+  ).length;
   const nDraws = props.games.filter((p) => p.outcome === "Draw").length;
 
   const whitePercentage = ((nWhiteWins * 100) / props.games.length).toFixed(1);
@@ -77,18 +78,18 @@ export const StatsModal: React.FC<IProps> = (props) => {
       <Modal.Body>
         {props.games.length > 0 ? (
           <>
-            <Jumbotron style={{ padding: 10 }}>
+            <div className="jumbotron" style={{ padding: 10 }}>
               <h4>
                 White: {whitePercentage}%; Black: {blackPercentage}%; Draw:{" "}
                 {drawPercentage}%
               </h4>
-            </Jumbotron>
+            </div>
             <Plot data={data} layout={layout} />
           </>
         ) : (
-          <Jumbotron style={{ padding: 10 }}>
+          <div className="jumbotron" style={{ padding: 10 }}>
             <h4>No games played</h4>
-          </Jumbotron>
+          </div>
         )}
       </Modal.Body>
     </Modal>
